@@ -18,8 +18,14 @@ public class PushTweet
 	static String accessToken;
 	static String accessTokenSecret;
 	
+	TweetCollection tweetCollection = new TweetCollection();
+	
 
 	public static void main(String[] args)
+	{
+		//tweetCollection.LoadTweets();
+	}
+	public static void Etcethera(String[] args)
 	{
 		Twitter tw;
 
@@ -38,7 +44,7 @@ AccessToken accessToken = null;
                 
 if (false) {
 		try {
-		RequestToken requestToken = tw.getOAuthRequestToken();
+				RequestToken requestToken = tw.getOAuthRequestToken();
                 System.out.println("Got request token.");
                 System.out.println("Request token: " + requestToken.getToken());
                 System.out.println("Request token secret: " + requestToken.getTokenSecret());
