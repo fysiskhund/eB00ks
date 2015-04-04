@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 
 public class PushTweet
@@ -17,6 +18,7 @@ public class PushTweet
 	static String consumerSecret;
 	static String accessToken;
 	static String accessTokenSecret;
+	static Random r = new Random();
 	
 	static TweetCollection tweetCollection = new TweetCollection();
 	
@@ -25,23 +27,38 @@ public class PushTweet
 	{
 		String tweetText;
 		System.out.println("Args.length: "+args.length);
-		if (args.length >0 && args[0].equals("tweet"))
+		if ((args.length >0) && args[0].contains("remix"))
 		{
 			System.out.println("Generating tweet collection..");
 			tweetCollection.LoadTweets();
 			
-			do
-			{
-				System.out.println("Remixing..");
-				tweetText = tweetCollection.Remix();
-			} while (tweetText.length() > 140);
-
-			args = new String[1];
+			do {
+				do
+				{
+					System.out.println("Remixing..");
+					tweetText = tweetCollection.Remix();
+				} while (tweetText.length() > 140);
+	
+				args = new String[1];
+				
+				args[0] = tweetText;
 			
-			args[0] = tweetText;
-		}
+				if (args[0].contains("forever"))
+				{
+					try {
+						Thread.sleep(180000 + r.nextInt(120000));
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} while (args[0].contains("forever"));
+			
+		} else
+		{
 
-		Tweet(args);
+			Tweet(args);
+		}
 		
 	}
 	public static void Tweet(String[] args)
@@ -104,6 +121,7 @@ if (false) {
 		try {
 			if (args.length == 0)
 			{
+				System.out.println("Reading from stdin..");
 				BufferedReader br = 
                       			new BufferedReader(new InputStreamReader(System.in));
 				String input = "";
