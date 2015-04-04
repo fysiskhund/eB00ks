@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class TweetCollection{
@@ -13,6 +14,17 @@ public class TweetCollection{
 
 	boolean includeReplies = false;
 	boolean includeRTs = false;
+	Random r = new Random();
+	
+	String[] joinWords = {
+		" and ",
+		" or ",
+		" so ",
+		" that ",
+		",",
+		" but "
+	};
+	
 
 	public void LoadTweets()
 	{
@@ -73,7 +85,7 @@ public class TweetCollection{
 							{
 								
 								tweetText = tweetText.substring(0, tweetText.length()-1);
-								System.out.println("adding "+tweetText);
+								//System.out.println("adding "+tweetText);
 								tweetsCSV.add(tweetText);
 								
 								tweetText = "";
@@ -107,7 +119,80 @@ public class TweetCollection{
 		}catch(Exception e){
 			e.printStackTrace(System.out);
 		}
+		
+		System.out.println("Remix: "+Remix());
 
+	}
+	
+	
+	public String Remix()
+	{
+		String tweet0 = null;
+		String tweet1 = null;
+		
+		String joinWordDef ="";
+		
+		
+		while (tweet0 == null)
+		{
+			String tentative = tweetsCSV.get(r.nextInt(tweetsCSV.size()));
+			
+			String joinWord = joinWords[r.nextInt(joinWords.length)];
+			
+			int joinPlace = tentative.indexOf(joinWord); 
+			if (joinPlace > -1)
+			{
+				
+				tweet0 = tentative.substring(0, joinPlace);
+				joinWordDef = joinWord;
+			}
+		}
+		while (tweet1 == null)
+		{
+			String tentative = tweetsCSV.get(r.nextInt(tweetsCSV.size()));
+			
+			String joinWord = joinWords[r.nextInt(joinWords.length)];
+			
+			
+			int joinPlace = tentative.indexOf(joinWord);
+			
+			if (joinPlace > -1)
+			{
+				joinPlace += joinWord.length();
+				tentative = tentative.substring(joinPlace);
+				tweet1 = tentative;
+			}
+		}
+		String defTweet = tweet0 + joinWordDef + tweet1;
+		
+		int shorteningTries = 0;
+		while (defTweet.length() > 140 && shorteningTries < 10)
+		{
+			int whichStrategy = 0; // r.nextInt();
+			
+			switch(whichStrategy)
+			{
+			case 0:
+			{
+				// Find puntuation; cut there
+				int cutHere = defTweet.lastIndexOf('.');
+				if (cutHere < -1)
+				{
+					cutHere = defTweet.lastIndexOf(';');
+				}
+				
+				if (cutHere > -1)
+				{
+					defTweet.substring(0, cutHere);
+				}
+				
+			}
+				break;
+			}
+			
+			shorteningTries++;
+		}
+		return defTweet;
 	}
 
 

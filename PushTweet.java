@@ -18,14 +18,30 @@ public class PushTweet
 	static String accessToken;
 	static String accessTokenSecret;
 	
-	TweetCollection tweetCollection = new TweetCollection();
+	static TweetCollection tweetCollection = new TweetCollection();
 	
 
 	public static void main(String[] args)
 	{
-		//tweetCollection.LoadTweets();
+		String tweetText;
+		
+		if (args.length >0 && args[0].equals("tweet"))
+		{
+			tweetCollection.LoadTweets();
+			
+			do
+			{
+				tweetText = tweetCollection.Remix();
+			} while (tweetText.length() > 140);
+			args = new String[1];
+			
+			args[0] = tweetText;
+		}
+
+		Tweet(args);
+		
 	}
-	public static void Etcethera(String[] args)
+	public static void Tweet(String[] args)
 	{
 		Twitter tw;
 
