@@ -32,6 +32,8 @@ public class PushTweet
 			System.out.println("Generating tweet collection..");
 			tweetCollection.LoadTweets();
 			
+			String[] remixArgs = new String[1];
+			
 			do {
 				do
 				{
@@ -39,9 +41,10 @@ public class PushTweet
 					tweetText = tweetCollection.Remix();
 				} while (tweetText.length() > 140);
 	
-				args = new String[1];
 				
-				args[0] = tweetText;
+				
+				remixArgs[0] = tweetText;
+				Tweet(remixArgs);
 			
 				if (args[0].contains("forever"))
 				{
