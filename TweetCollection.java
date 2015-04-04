@@ -165,6 +165,9 @@ public class TweetCollection{
 		}
 		String defTweet = tweet0 + joinWordDef + tweet1;
 		
+		defTweet = defTweet.trim();
+		defTweet = defTweet.replace("  ", " ");
+		
 		int shorteningTries = 0;
 		while (defTweet.length() > 140 && shorteningTries < 10)
 		{
