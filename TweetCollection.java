@@ -120,7 +120,7 @@ public class TweetCollection{
 			e.printStackTrace(System.out);
 		}
 		
-		System.out.println("Remix: "+Remix());
+		//System.out.println("Remix: "+Remix());
 
 	}
 	

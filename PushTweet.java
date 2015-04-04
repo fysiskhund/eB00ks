@@ -24,15 +24,18 @@ public class PushTweet
 	public static void main(String[] args)
 	{
 		String tweetText;
-		
+		System.out.println("Args.length: "+args.length);
 		if (args.length >0 && args[0].equals("tweet"))
 		{
+			System.out.println("Generating tweet collection..");
 			tweetCollection.LoadTweets();
 			
 			do
 			{
+				System.out.println("Remixing..");
 				tweetText = tweetCollection.Remix();
 			} while (tweetText.length() > 140);
+
 			args = new String[1];
 			
 			args[0] = tweetText;
