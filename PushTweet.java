@@ -49,7 +49,10 @@ public class PushTweet
 				if (args[0].contains("forever"))
 				{
 					try {
-						Thread.sleep(180000 + r.nextInt(120000));
+						long millisToNextTweet = (20 *60000) + r.nextInt(20 *60000);
+						float minutesToNextTweet = millisToNextTweet/60000;
+						System.out.println("Next tweet in "+minutesToNextTweet+" minutes");
+						Thread.sleep(millisToNextTweet);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
