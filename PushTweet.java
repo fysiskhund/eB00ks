@@ -49,7 +49,7 @@ public class PushTweet
 				if (args[0].contains("forever"))
 				{
 					try {
-						long millisToNextTweet = (20 *60000) + r.nextInt(20 *60000);
+						long millisToNextTweet = (30 *60000) + r.nextInt(40 *60000);
 						float minutesToNextTweet = millisToNextTweet/60000;
 						System.out.println("Next tweet in "+minutesToNextTweet+" minutes");
 						Thread.sleep(millisToNextTweet);
@@ -60,6 +60,15 @@ public class PushTweet
 				}
 			} while (args[0].contains("forever"));
 			
+		} else if (args[0].contains("test"))
+		{
+			System.out.println("Generating tweet collection..");
+			tweetCollection.LoadTweets();
+			for (int i = 0; i < 10; i++)
+			{
+				tweetText = tweetCollection.Remix();
+				System.out.println(tweetText);
+			}
 		} else
 		{
 
